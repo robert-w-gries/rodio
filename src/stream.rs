@@ -45,6 +45,16 @@ impl OutputStream {
             .ok_or(StreamError::NoDevice)?;
         Self::try_from_device(&device)
     }
+
+    pub fn resume(&self) -> Result<(), StreamError> {
+        self._stream.play()?;
+        Ok(())
+    }
+
+    pub fn suspend(&self) -> Result<(), cpal::PauseStreamError> {
+        self._stream.pause()?;
+        Ok(())
+    }
 }
 
 impl OutputStreamHandle {
